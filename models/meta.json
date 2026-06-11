@@ -1,21 +1,21 @@
 {
-  "trained_at": "2026-06-11T18:43:59.055448",
-  "samples": 2000,
+  "trained_at": "2026-06-11T19:33:44.907605",
+  "samples": 6620,
   "results": {
     "RandomForest": {
       "accuracy": 1.0,
-      "cv_f1_mean": 1.0,
-      "cv_f1_std": 0.0
+      "cv_f1_mean": 0.8573170731707318,
+      "cv_f1_std": 0.2853658536585366
     },
     "GradientBoosting": {
       "accuracy": 1.0,
-      "cv_f1_mean": 1.0,
-      "cv_f1_std": 0.0
+      "cv_f1_mean": 0.9261875761266747,
+      "cv_f1_std": 0.1476248477466504
     },
     "MLP Neural Net": {
       "accuracy": 1.0,
-      "cv_f1_mean": 1.0,
-      "cv_f1_std": 0.0
+      "cv_f1_mean": 0.9669258683255574,
+      "cv_f1_std": 0.06614826334888543
     },
     "TorchMLP": {
       "accuracy": 1.0

@@ -1,6 +1,4 @@
 {
-  "output_path": "reports/DT_Scan_Report_20260611_193345.docx",
-  "scan_date": "June 11, 2026 19:33",
   "findings": [
     {
       "vulnerable": true,
@@ -2655,6 +2653,1702 @@
           "XSS Filter": false
         }
       }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "export",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.305,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "view",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.2833,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "doc",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3069,
+      "url": "https://client.dialer360.com/index.php",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "fetch",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3088,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "require",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3359,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "open",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.2752,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "img",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3076,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "page",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3025,
+      "url": "https://client.dialer360.com/",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "document",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3072,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "template",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.2887,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "path",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3061,
+      "url": "https://client.dialer360.com/",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "conf",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3168,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "module",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3021,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "include",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3179,
+      "url": "https://client.dialer360.com/",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "file",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3111,
+      "url": "https://client.dialer360.com/index.php",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "get",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.284,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 5449 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "require",
+      "status_code": 200,
+      "response_size": 5449,
+      "response_time": 0.5257,
+      "url": "https://client.dialer360.com/admin/",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.889,
+        "ensemble_score": 0.977,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "func",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.2793,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "require",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3051,
+      "url": "https://client.dialer360.com/index.php",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 5449 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "document",
+      "status_code": 200,
+      "response_size": 5449,
+      "response_time": 0.5186,
+      "url": "https://client.dialer360.com/admin/",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.888,
+        "ensemble_score": 0.976,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 5449 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "template",
+      "status_code": 200,
+      "response_size": 5449,
+      "response_time": 0.4917,
+      "url": "https://client.dialer360.com/admin/",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.888,
+        "ensemble_score": 0.976,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "download",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3036,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "template",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.308,
+      "url": "https://client.dialer360.com/",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "page",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3047,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "folder",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3021,
+      "url": "https://client.dialer360.com/index.php",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "url",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3115,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "path",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3127,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "include",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.303,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "cmd",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.306,
+      "url": "https://client.dialer360.com",
+      "method": "POST",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 5449 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "path",
+      "status_code": 200,
+      "response_size": 5449,
+      "response_time": 0.6782,
+      "url": "https://client.dialer360.com/admin/",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.889,
+        "ensemble_score": 0.977,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 5449 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "include",
+      "status_code": 200,
+      "response_size": 5449,
+      "response_time": 0.5083,
+      "url": "https://client.dialer360.com/admin/",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.889,
+        "ensemble_score": 0.977,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
+    },
+    {
+      "vulnerable": true,
+      "severity": "Medium",
+      "evidence": [
+        {
+          "indicator": "HTTP 200 + 8000 bytes",
+          "category": "response"
+        }
+      ],
+      "category": "potential_lfi",
+      "payload": "../../../etc/passwd",
+      "parameter": "include",
+      "status_code": 200,
+      "response_size": 8000,
+      "response_time": 0.3098,
+      "url": "https://client.dialer360.com/index.php",
+      "method": "GET",
+      "payload_category": "classic",
+      "cvss": 5.3,
+      "ml_prediction": {
+        "is_vulnerable": true,
+        "confidence": 0.9,
+        "ensemble_score": 1.0,
+        "majority_vote": 0.8,
+        "votes": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "ml_flagged": false,
+      "target": "https://client.dialer360.com",
+      "fingerprint": {
+        "server": "Apache",
+        "x_powered_by": "Unknown",
+        "content_type": "text/html; charset=utf-8",
+        "status": 200,
+        "waf_detected": [],
+        "tech_stack": [
+          "PHP",
+          "Apache"
+        ],
+        "security_headers": {
+          "Clickjacking Protection": false,
+          "MIME Sniffing Protection": false,
+          "HSTS": false,
+          "CSP": false,
+          "XSS Filter": false
+        }
+      }
     }
   ],
   "stats": {
@@ -2666,11 +4360,5 @@
     "severity_critical": 0,
     "severity_high": 0,
     "severity_low": 0
-  },
-  "severity_counts": {
-    "critical": 0,
-    "high": 0,
-    "medium": 82,
-    "low": 0
   }
 }
