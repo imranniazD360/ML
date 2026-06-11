@@ -24,6 +24,30 @@ from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neural_network import MLPClassifier
 import joblib
+
+# Optional GPU / PyTorch support (used for an accelerated MLP when available)
+try:
+  import torch
+  import torch.nn as nn
+  from torch.utils.data import TensorDataset, DataLoader
+  TORCH_AVAILABLE = True
+except Exception:
+  TORCH_AVAILABLE = False
+if TORCH_AVAILABLE:
+  class TorchMLP(nn.Module):
+    def __init__(self, input_dim, hidden_sizes=(128,64,32), num_classes=2):
+      super().__init__()
+      layers = []
+      prev = input_dim
+      for h in hidden_sizes:
+        layers.append(nn.Linear(prev, h))
+        layers.append(nn.ReLU())
+        prev = h
+      layers.append(nn.Linear(prev, num_classes))
+      self.net = nn.Sequential(*layers)
+
+    def forward(self, x):
+      return self.net(x)
 from rich.console import Console
 from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeElapsedColumn
@@ -176,6 +200,11 @@ class MLEngine:
         self.model_meta        = {}
         self.trained           = False
         self._lock             = threading.Lock()
+        self.torch_available   = TORCH_AVAILABLE
+        self.device            = torch.device('cuda' if (self.torch_available and torch.cuda.is_available()) else 'cpu') if self.torch_available else None
+        self.torch_model       = None
+
+    
 
     def extract_features(self, scan_result: dict) -> np.ndarray:
         """Extract numerical feature vector from a scan result"""
@@ -235,22 +264,29 @@ class MLEngine:
         X, y = [], []
 
         # Positive class: Successful traversal (label=1)
+        payload_list = sum([v for v in TRAVERSAL_PAYLOADS.values()], [])
         for _ in range(n_samples // 2):
+            body = random.choice([
+                "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:",
+                "[extensions]\nMSDOS=5.00",
+                "DB_PASSWORD=supersecret123\nAPI_KEY=abc123",
+                "<?php\n$config['password'] = 'admin123';",
+                "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAK",
+            ])
             sample = {
                 "status_code": random.choice([200, 200, 200, 206]),
-                "response_time": random.uniform(0.05, 0.8),
-                "response_body": random.choice([
-                    "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:",
-                    "[extensions]\nMSDOS=5.00",
-                    "DB_PASSWORD=supersecret123\nAPI_KEY=abc123",
-                    "<?php\n$config['password'] = 'admin123';",
-                    "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAK",
+                "response_time": random.uniform(0.02, 1.2),
+                "response_body": body,
+                "content_length": max(100, len(body) + random.randint(100, 5000)),
+                "payload": random.choice(payload_list),
+                "response_headers": random.choice([
+                    {"content-type": "text/plain", "server": "Apache/2.4"},
+                    {"content-type": "application/octet-stream", "server": "nginx"},
+                    {"content-type": "text/html", "server": "Apache/2.4"},
                 ]),
-                "content_length": random.randint(500, 5000),
-                "payload": random.choice(list(TRAVERSAL_PAYLOADS.values())[0]),
-                "response_headers": {"content-type": "text/plain", "server": "Apache/2.4"},
-                "parameter": random.choice(["file", "path", "include", "load"]),
-                "redirect_count": 0, "redirected": False,
+                "parameter": random.choice(["file", "path", "include", "load", "document"]),
+                "redirect_count": 0,
+                "redirected": False,
             }
             X.append(self.extract_features(sample))
             y.append(1)
@@ -259,21 +295,67 @@ class MLEngine:
         for _ in range(n_samples // 2):
             sample = {
                 "status_code": random.choice([403, 404, 400, 500, 301]),
-                "response_time": random.uniform(0.01, 0.3),
+                "response_time": random.uniform(0.005, 0.6),
                 "response_body": random.choice([
                     "Access denied", "Not found", "400 Bad Request",
                     "<html><body>Forbidden</body></html>", "Error 500 Internal Server Error",
                 ]),
-                "content_length": random.randint(50, 500),
-                "payload": random.choice(["test.html", "index.php", "about.html"]),
-                "response_headers": {"content-type": "text/html", "server": "nginx"},
-                "parameter": random.choice(["id", "page", "lang", "sort"]),
-                "redirect_count": random.randint(0, 2), "redirected": bool(random.randint(0,1)),
+                "content_length": random.randint(20, 800),
+                "payload": random.choice(["test.html", "index.php", "about.html", "sample.txt"]),
+                "response_headers": random.choice([
+                    {"content-type": "text/html", "server": "nginx"},
+                    {"content-type": "application/json", "server": "nginx"},
+                ]),
+                "parameter": random.choice(["id", "page", "lang", "sort", "q"]),
+                "redirect_count": random.randint(0, 3),
+                "redirected": bool(random.randint(0,1)),
             }
             X.append(self.extract_features(sample))
             y.append(0)
 
         return np.array(X), np.array(y)
+
+    def _load_csv_dataset(self) -> tuple:
+        """Load training examples from CSV files in DATA_DIR if present.
+        Expected columns: status_code,response_time,response_body,content_length,payload,response_headers,parameter,redirect_count,redirected,label
+        """
+        files = list(DATA_DIR.glob("*.csv"))
+        if not files:
+            return None
+
+        X_list, y_list = [], []
+        for f in files:
+            try:
+                df = pd.read_csv(f)
+            except Exception:
+                continue
+            for _, row in df.iterrows():
+                try:
+                    headers = row.get('response_headers', {})
+                    if isinstance(headers, str):
+                        try:
+                            headers = json.loads(headers)
+                        except Exception:
+                            headers = {}
+                    sample = {
+                        'status_code': int(row.get('status_code', 0)),
+                        'response_time': float(row.get('response_time', 0.0)),
+                        'response_body': str(row.get('response_body', '')),
+                        'content_length': int(row.get('content_length', 0)),
+                        'payload': str(row.get('payload', '')),
+                        'response_headers': headers if isinstance(headers, dict) else {},
+                        'parameter': str(row.get('parameter', '')),
+                        'redirect_count': int(row.get('redirect_count', 0)),
+                        'redirected': bool(row.get('redirected', False)),
+                    }
+                    X_list.append(self.extract_features(sample))
+                    y_list.append(int(row.get('label', 0)))
+                except Exception:
+                    continue
+
+        if not X_list:
+            return None
+        return np.array(X_list), np.array(y_list)
 
     def train_models(self, X=None, y=None, verbose=True):
         """Train all ML models with provided or synthetic data"""
@@ -283,9 +365,16 @@ class MLEngine:
         # Generate synthetic + real data
         X_syn, y_syn = self.generate_synthetic_training_data(2000)
         if X is not None and len(X) > 0:
-            X = np.vstack([X_syn, X])
-            y = np.concatenate([y_syn, y])
+          X = np.vstack([X_syn, X])
+          y = np.concatenate([y_syn, y])
         else:
+          # Try loading CSV datasets from data/ if present
+          loaded = self._load_csv_dataset()
+          if loaded is not None:
+            X_loaded, y_loaded = loaded
+            X = np.vstack([X_syn, X_loaded])
+            y = np.concatenate([y_syn, y_loaded])
+          else:
             X, y = X_syn, y_syn
 
         X_scaled = self.scaler.fit_transform(X)
@@ -324,12 +413,50 @@ class MLEngine:
                 finally:
                     progress.advance(task)
 
+        # Optionally train a PyTorch MLP on GPU if available (adds a fast neural net to ensemble)
+        if self.torch_available:
+            try:
+                input_dim = X_train.shape[1]
+                torch_model = TorchMLP(input_dim, hidden_sizes=(128,64,32), num_classes=2).to(self.device)
+                criterion = nn.CrossEntropyLoss()
+                optimizer = torch.optim.Adam(torch_model.parameters(), lr=1e-3)
+                tx = torch.tensor(X_train, dtype=torch.float32).to(self.device)
+                ty = torch.tensor(y_train, dtype=torch.long).to(self.device)
+                dataset = TensorDataset(tx, ty)
+                loader = DataLoader(dataset, batch_size=64, shuffle=True)
+                epochs = 10
+                torch_model.train()
+                for epoch in range(epochs):
+                    ep_loss = 0.0
+                    for xb, yb in loader:
+                        optimizer.zero_grad()
+                        out = torch_model(xb)
+                        loss = criterion(out, yb)
+                        loss.backward()
+                        optimizer.step()
+                        ep_loss += loss.item()
+                # evaluate on test set
+                torch_model.eval()
+                with torch.no_grad():
+                    txs = torch.tensor(X_test, dtype=torch.float32).to(self.device)
+                    outs = torch_model(txs)
+                    probs = nn.functional.softmax(outs, dim=1)[:,1].cpu().numpy()
+                    preds = (probs >= 0.5).astype(int)
+                    acc = float((preds == y_test).mean())
+                results['TorchMLP'] = {'accuracy': acc}
+                self.torch_model = torch_model
+                if verbose:
+                    console.print(f"  ✅ [green]TorchMLP[/green]: Accuracy={acc:.3f} (device={self.device})")
+            except Exception as e:
+                if verbose:
+                    console.print(f"  ⚠ [yellow]Torch MLP training skipped/error: {e}[/yellow]")
+
         self.model_meta = {"trained_at": datetime.now().isoformat(), "samples": len(X), "results": results}
         self.trained = True
         self._save_models()
 
         if verbose:
-            console.print(f"\n[bold green]✅ All models trained & saved![/bold green]")
+          console.print(f"\n[bold green]✅ All models trained & saved![/bold green]")
         return results
 
     def predict(self, scan_result: dict) -> dict:
@@ -356,6 +483,20 @@ class MLEngine:
                 proba.append(prob)
             except: pass
 
+        # Torch model prediction (if available)
+        if self.torch_model is not None:
+          try:
+            self.torch_model.eval()
+            xf = torch.tensor(features_scaled, dtype=torch.float32).to(self.device)
+            with torch.no_grad():
+              out = self.torch_model(xf)
+              p = nn.functional.softmax(out, dim=1).cpu().numpy()[0][1]
+            pred = 1 if p >= 0.5 else 0
+            votes.append(int(pred))
+            proba.append(float(p))
+          except Exception:
+            pass
+
         ensemble_score    = np.mean(proba) if proba else 0.5
         majority_vote     = sum(votes) / len(votes) if votes else 0
         is_vulnerable     = majority_vote >= 0.5 or ensemble_score >= 0.6
@@ -376,6 +517,13 @@ class MLEngine:
         joblib.dump(self.gb_classifier,    MODEL_DIR / "gradient_boosting.pkl")
         joblib.dump(self.mlp_classifier,   MODEL_DIR / "mlp.pkl")
         joblib.dump(self.scaler,           MODEL_DIR / "scaler.pkl")
+        # Save torch model state if present
+        if self.torch_model is not None and self.torch_available:
+            try:
+                torch.save(self.torch_model.state_dict(), str(MODEL_DIR / "mlp_torch.pth"))
+                self.model_meta['torch_model'] = True
+            except Exception:
+                pass
         with open(MODEL_DIR / "meta.json", "w") as f:
             json.dump(self.model_meta, f, indent=2)
         console.print(f"[dim]💾 Models saved to {MODEL_DIR}/[/dim]")
@@ -390,10 +538,21 @@ class MLEngine:
             self.scaler           = joblib.load(MODEL_DIR / "scaler.pkl")
             with open(MODEL_DIR / "meta.json") as f:
                 self.model_meta = json.load(f)
-            self.trained = True
-            return True
-        except:
+        except Exception:
             return False
+
+        # Try load torch model if available and previously saved
+        if self.torch_available and self.model_meta.get('torch_model'):
+            try:
+                input_dim = int(getattr(self.scaler, 'mean_', None).shape[0])
+                tm = TorchMLP(input_dim, hidden_sizes=(128,64,32), num_classes=2).to(self.device)
+                tm.load_state_dict(torch.load(str(MODEL_DIR / "mlp_torch.pth"), map_location=self.device))
+                self.torch_model = tm
+            except Exception:
+                self.torch_model = None
+
+        self.trained = True
+        return True
 
 # ─────────────────────────────────────────────────
 #  HTTP ENGINE

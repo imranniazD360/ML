@@ -4,3 +4,4 @@ pandas
 scikit-learn
 joblib
 rich
+torch>=1.13.0
