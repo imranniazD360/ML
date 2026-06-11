@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/ADC212006/ML/issues"
   },
-  "homepage": "https://github.com/ADC212006/ML#readme"
+  "homepage": "https://github.com/ADC212006/ML#readme",
+  "dependencies": {
+    "docx": "^9.7.1"
+  }
 }

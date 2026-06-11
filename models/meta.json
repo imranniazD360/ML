@@ -1,0 +1,21 @@
+{
+  "trained_at": "2026-06-11T17:26:25.530596",
+  "samples": 2000,
+  "results": {
+    "RandomForest": {
+      "accuracy": 1.0,
+      "cv_f1_mean": 1.0,
+      "cv_f1_std": 0.0
+    },
+    "GradientBoosting": {
+      "accuracy": 1.0,
+      "cv_f1_mean": 1.0,
+      "cv_f1_std": 0.0
+    },
+    "MLP Neural Net": {
+      "accuracy": 1.0,
+      "cv_f1_mean": 1.0,
+      "cv_f1_std": 0.0
+    }
+  }
+}
