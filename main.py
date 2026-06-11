@@ -266,15 +266,28 @@ class MLEngine:
         # Positive class: Successful traversal (label=1)
         payload_list = sum([v for v in TRAVERSAL_PAYLOADS.values()], [])
         for _ in range(n_samples // 2):
-            body = random.choice([
-                "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:",
-                "[extensions]\nMSDOS=5.00",
-                "DB_PASSWORD=supersecret123\nAPI_KEY=abc123",
-                "<?php\n$config['password'] = 'admin123';",
-                "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAK",
-            ])
+            if random.random() > 0.3:
+                body = random.choice([
+                    "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:",
+                    "[extensions]\nMSDOS=5.00",
+                    "DB_PASSWORD=supersecret123\nAPI_KEY=abc123",
+                    "<?php\n$config['password'] = 'admin123';",
+                    "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAK",
+                    "Linux version 5.15.0-100-generic (buildd@lcy02-amd64)",
+                    "Warning: include(../../../etc/passwd): failed to open stream",
+                ])
+                status = random.choice([200, 200, 206, 403])
+            else:
+                body = random.choice([
+                    "Warning: include(../../../etc/passwd): failed to open stream",
+                    "Fatal error: require(): Failed opening required '../../../etc/passwd'",
+                    "PHP Warning: file_get_contents(/etc/passwd): failed to open stream",
+                    "Error: fopen(../../../etc/passwd) failed",
+                ])
+                status = random.choice([200, 403, 500])
+
             sample = {
-                "status_code": random.choice([200, 200, 200, 206]),
+                "status_code": status,
                 "response_time": random.uniform(0.02, 1.2),
                 "response_body": body,
                 "content_length": max(100, len(body) + random.randint(100, 5000)),
@@ -293,18 +306,22 @@ class MLEngine:
 
         # Negative class: Blocked/harmless (label=0)
         for _ in range(n_samples // 2):
+            status = random.choice([200, 403, 404, 400, 500, 301])
             sample = {
-                "status_code": random.choice([403, 404, 400, 500, 301]),
+                "status_code": status,
                 "response_time": random.uniform(0.005, 0.6),
                 "response_body": random.choice([
                     "Access denied", "Not found", "400 Bad Request",
                     "<html><body>Forbidden</body></html>", "Error 500 Internal Server Error",
+                    "<html><body>Welcome to our site</body></html>",
+                    "{\"status\": \"ok\", \"message\": \"success\"}",
                 ]),
-                "content_length": random.randint(20, 800),
+                "content_length": random.randint(20, 5000),
                 "payload": random.choice(["test.html", "index.php", "about.html", "sample.txt"]),
                 "response_headers": random.choice([
                     {"content-type": "text/html", "server": "nginx"},
                     {"content-type": "application/json", "server": "nginx"},
+                    {"content-type": "text/plain", "server": "nginx"},
                 ]),
                 "parameter": random.choice(["id", "page", "lang", "sort", "q"]),
                 "redirect_count": random.randint(0, 3),
@@ -688,7 +705,12 @@ class HTTPEngine:
 class VulnerabilityAnalyzer:
     """Analyzes HTTP responses for directory traversal success"""
 
-    def analyze_response(self, result: dict, payload: str, param: str) -> dict:
+    def _compute_similarity(self, body1: str, body2: str) -> float:
+        """Compute similarity between response bodies for baseline comparison."""
+        import difflib
+        return difflib.SequenceMatcher(None, body1[:5000], body2[:5000]).ratio()
+
+    def analyze_response(self, result: dict, payload: str, param: str, baseline_body: str = None) -> dict:
         """Deep analysis of response for traversal success signals"""
         if not result.get("success"):
             return {"vulnerable": False, "severity": "N/A", "evidence": [], "category": "error"}
@@ -700,33 +722,67 @@ class VulnerabilityAnalyzer:
         evidence = []
         severity = "Info"
         vuln_type = "none"
+        body_lower = body.lower()
+        baseline_lower = baseline_body.lower() if baseline_body else None
 
         # Check for file content leakage
         for cat, indicators in SUCCESS_INDICATORS.items():
             for ind in indicators:
-                if ind.lower() in body.lower():
+                if ind.lower() in body_lower:
                     evidence.append({"indicator": ind, "category": cat})
-                    if cat in ["linux", "windows"]: severity, vuln_type = "Critical", "lfi_passwd"
-                    elif cat == "ssh_key":           severity, vuln_type = "Critical", "lfi_ssh_key"
-                    elif cat == "config":            severity, vuln_type = "High",     "lfi_config"
-                    elif cat == "source_code":       severity, vuln_type = "High",     "lfi_source"
+                    if cat in ["linux", "windows"]:
+                        severity, vuln_type = "Critical", "lfi_passwd"
+                    elif cat == "ssh_key":
+                        severity, vuln_type = "Critical", "lfi_ssh_key"
+                    elif cat == "config":
+                        severity, vuln_type = "High", "lfi_config"
+                    elif cat == "source_code":
+                        severity, vuln_type = "High", "lfi_source"
 
-        # Status code analysis
-        if status == 200 and size > 200 and not evidence:
-            evidence.append({"indicator": f"HTTP 200 + {size} bytes", "category": "response"})
-            if severity == "Info": severity = "Medium"
-            vuln_type = "potential_lfi"
+        # Differential baseline comparison to avoid false positives on generic 200 OK responses
+        if baseline_lower and not evidence:
+            similarity = self._compute_similarity(body_lower, baseline_lower)
+            if similarity > 0.95:
+                return {
+                    "vulnerable": False,
+                    "severity": "Info",
+                    "evidence": [],
+                    "category": "none",
+                    "payload": payload,
+                    "parameter": param,
+                    "status_code": status,
+                    "response_size": size,
+                    "response_time": result.get("response_time", 0),
+                }
 
         # Error-based detection (info leakage)
-        error_patterns = ["include(", "require(", "fopen(", "file_get_contents(", "No such file", "Failed to open"]
+        error_patterns = [
+            "failed to open stream", "no such file", "file_get_contents(",
+            "include(", "require(", "fopen(", "warning:", "fatal error",
+        ]
         for pat in error_patterns:
-            if pat in body:
+            if pat in body_lower:
                 evidence.append({"indicator": f"Error: {pat}", "category": "error_disclosure"})
-                if severity == "Info": severity = "Low"
+                if severity == "Info":
+                    severity = "Low"
                 vuln_type = "error_disclosure"
 
+        # Only flag potential traversal when actual evidence exists
+        if len(evidence) == 0:
+            return {
+                "vulnerable": False,
+                "severity": "Info",
+                "evidence": [],
+                "category": "none",
+                "payload": payload,
+                "parameter": param,
+                "status_code": status,
+                "response_size": size,
+                "response_time": result.get("response_time", 0),
+            }
+
         return {
-            "vulnerable":      len(evidence) > 0,
+            "vulnerable":      True,
             "severity":        severity,
             "evidence":        evidence,
             "category":        vuln_type,
@@ -809,6 +865,15 @@ class DirectoryTraversalScanner:
 
     def scan_endpoint(self, url: str, param: str, method: str, payload: str, category: str) -> dict:
         """Test a single endpoint + param + payload combination"""
+        # Collect a baseline response with a benign value to reduce false positives
+        baseline_value = "test"
+        if method == "GET":
+            sep = "&" if "?" in url else "?"
+            baseline_url = f"{url}{sep}{param}={quote(baseline_value)}"
+            baseline = self.http.request("GET", baseline_url)
+        else:
+            baseline = self.http.request("POST", url, data={param: baseline_value})
+
         if method == "GET":
             sep  = "&" if "?" in url else "?"
             test_url = f"{url}{sep}{param}={quote(payload)}"
@@ -816,7 +881,10 @@ class DirectoryTraversalScanner:
         else:
             result = self.http.request("POST", url, data={param: payload})
 
-        analysis = self.analyzer.analyze_response(result, payload, param)
+        analysis = self.analyzer.analyze_response(
+            result, payload, param,
+            baseline_body=baseline.get("response_body", "") if baseline else None,
+        )
         analysis.update({
             "url":              url,
             "method":           method,
